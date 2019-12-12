@@ -41,7 +41,7 @@
         </div>
         <div class="form-group">
             <label class="blogpostheaders" th:text="#{form_postInhoud}">Blog inhoud</label>
-            <textarea class="form-control"  rows="5" cols="30" th:field="*{postInhoud}"
+            <textarea class="form-control" rows="5" cols="30" th:field="*{postInhoud}"
                       th:placeholder="#{ph_contents}"></textarea>
             <span th:if="${#fields.hasErrors('postInhoud')}" th:errors="*{postInhoud}" class="error"></span>
         </div>
@@ -54,8 +54,32 @@
         <p th:text="${blog.postInhoud}"></p>
         <p th:text="#{th_posted} +${blog.naam}"></p>
         <p th:text="${blog.getDate()}"></p>
-        <a class="btn btn-primary" th:href="@{~/delete/{id}(id=${blog.id})}" th:text="#{delete}"></a>
-    <br>
+        <a class="btn btn-primary" th:href="'#model'+${blog.id}" data-toggle="modal" th:text="#{delete}"></a>
+
+        <div th:id="'model'+${blog.id}" class="modal fade">
+            <div class="modal-dialog modal-confirm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="icon-box">
+                            <i class="material-icons">&#xE5CD;</i>
+                        </div>
+                        <h4 class="modal-title">Are you sure?</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you really want to delete these records? This process cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                        <a th:href="@{~/delete/{id}(id=${blog.id})}">
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br>
     </div>
 </div>
 <footer> &copy; Petit Jochem.</footer>
